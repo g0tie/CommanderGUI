@@ -4,16 +4,26 @@ using Avalonia.Markup.Xaml;
 
 namespace MyApp.Views {
 
-    class CloneRepoView: Window 
+    class CloneRepoView: Window
     {
-        public CloneRepoView()
+        private string _dirPath = "";
+        public string DirPath
         {
+            get => _dirPath;
+            set 
+            {
+                _dirPath = value;
+            }
+        }
+        public CloneRepoView()
+        {   
             InitializeComponent();
         }
 
          private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            // System.Console.Write(dirPath);
         }
     }
 }
