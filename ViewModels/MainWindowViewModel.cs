@@ -14,11 +14,10 @@ namespace MyApp.ViewModels
             get => _directoryPath;
             set {
                 _directoryPath = value;
-                Console.Write(_directoryPath);
             }
         }
 
-        
+
     }
 
     

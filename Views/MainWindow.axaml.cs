@@ -1,9 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Input;
-using Avalonia.Interactivity;
-using System;
 
 namespace MyApp.Views
 {
