@@ -1,12 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Input;
+using Avalonia.Interactivity;
+using System;
 
 namespace MyApp.Views
 {
     public partial class MainWindow : Window
     {
-        private string directoryPath = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -18,14 +20,6 @@ namespace MyApp.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
-        }
-
-         private void getDirectory()
-        {
-            var dirPath = this.FindControl<TextBox>("dirPath").Text;
-
-            System.Console.WriteLine(dirPath);
-
         }
 
     }

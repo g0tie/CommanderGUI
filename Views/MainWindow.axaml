@@ -25,7 +25,7 @@
         Margin="5"    
         >
             <TextBlock VerticalAlignment="Center" Text="Directory Path:" Grid.Row="0" Grid.Column="0"></TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" Name="dirPath"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="dirPath" Text="{Binding DirectoryPath, Mode=TwoWay}"></TextBox>
         </Grid>
 
         <Grid 
