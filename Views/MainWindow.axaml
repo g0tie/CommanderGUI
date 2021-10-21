@@ -1,0 +1,42 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MyApp.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="MyApp.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="CommanderGUI"
+        Width="400"
+        >
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
+    <StackPanel>
+        
+        <TextBlock FontWeight="Bold" FontSize="20" TextAlignment="Center" Margin="0,15, 0, 30"> CommanderApp: manage git repo faster</TextBlock>
+
+        <Grid 
+        RowDefinitions="Auto,Auto,Auto" 
+        ColumnDefinitions="1*, 2*, Auto"
+        Margin="5"    
+        >
+            <TextBlock VerticalAlignment="Center" Text="Directory Path:" Grid.Row="0" Grid.Column="0"></TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="dirPath"></TextBox>
+        </Grid>
+
+        <Grid 
+            RowDefinitions="Auto,Auto,Auto" 
+            ColumnDefinitions="Auto, Auto,Auto"
+            Margin="5"    
+            HorizontalAlignment="Center"
+        >
+            <Button Grid.Row="1" Grid.Column="0">Clone a repo</Button>
+            <Button Grid.Row="1" Grid.Column="1">Create a repo</Button>
+            <Button Grid.Row="1" Grid.Column="2">Delete a local repo</Button>
+        </Grid>
+    </StackPanel>
+</Window>
