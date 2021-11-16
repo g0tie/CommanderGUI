@@ -5,6 +5,12 @@ using Avalonia.Controls;
 using MyApp.Views;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using MessageBox.Avalonia;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
+using MessageBox.Avalonia.Models;
+using MessageBoxAvaloniaEnums = MessageBox.Avalonia.Enums;
+using System.Threading;
 
 namespace MyApp.ViewModels
 {
@@ -30,6 +36,15 @@ namespace MyApp.ViewModels
                 _gitMsh = value;
             }
         }
+
+        // public MessageBox.Avalonia.BaseWindows.Base.IMsBoxWindow<MessageBox.Avalonia.Enums.ButtonResult> msgBox = MessageBox.Avalonia.MessageBoxManager
+        //     .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
+        //         ContentTitle = "Loading",
+        //         ContentMessage = "Chargement en cours ...",
+        //         Icon = Icon.Stopwatch,
+        //         Style = Style.UbuntuLinux
+        // });
+
 
         public async void folderOpener(Window window, string title, Action<string, string> callback, string command)
         {
@@ -68,14 +83,53 @@ namespace MyApp.ViewModels
                     FileName = "/bin/bash",
                     Arguments = $"-c \"{command}\"",
                     RedirectStandardOutput = true,
+                    RedirectStandardError=true,
                     UseShellExecute = false,
-                    CreateNoWindow = true,
+                    CreateNoWindow = false,
                 }
             };
+            
 
+            // await msgBox.Show();
+            Thread.Sleep(50);
             process.Start();
+
+            var errors = process.StandardError.ReadToEnd(); 
+            var output = process.StandardOutput.ReadToEnd(); 
+
             process.WaitForExit();
+
+            if (errors.Length > 0) {
+                
+                var msgBox = MessageBox.Avalonia.MessageBoxManager
+                .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
+                    ContentTitle = "Loading",
+                    ContentMessage = $"{errors}",
+                    Icon = Icon.Error,
+                    Style = Style.UbuntuLinux
+                });
+
+                msgBox.Show();
+
+            }
+
+            if (output.Length > 0) {
+                    
+                var msgBox = MessageBox.Avalonia.MessageBoxManager
+                .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
+                    ContentTitle = "Loading",
+                    ContentMessage = $"Opération réussie: {output}",
+                    Icon = Icon.Success,
+                    Style = Style.UbuntuLinux
+                });
+
+                msgBox.Show();
+
+            }
+            
+
         }
+
 
         // public void DeleteRepo(Window window) {
         //     folderOpener(window,"Supprimer un dépot local", bashExec, "rm -rf");

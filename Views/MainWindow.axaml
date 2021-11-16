@@ -20,15 +20,20 @@
     <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
     <StackPanel>
         
-        <TextBlock FontWeight="Bold" FontSize="13" TextAlignment="Left"> Clone a repo</TextBlock>
+        <TextBlock Margin="10,15" FontWeight="Bold" FontSize="13" TextAlignment="Left"> Clone a repo</TextBlock>
 
         <Grid 
         RowDefinitions="Auto" 
         ColumnDefinitions="500,100"
         Margin="5"    
         >
-            <TextBox Grid.Row="0" Grid.Column="0" Name="gitUrl" Text="{Binding GitUrl, Mode=TwoWay}"></TextBox>
-            <Button Grid.Row="0" Grid.Column="1" Command="{Binding CloneRepo}">Clone</Button>
+            <TextBox Margin="10,0"  Grid.Row="0" Grid.Column="0" Name="gitUrl" Text="{Binding GitUrl, Mode=TwoWay}"></TextBox>
+            <Button 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Command="{Binding CloneRepo}" 
+                CommandParameter="{Binding ElementName=MainWindow}"
+            >Clone</Button>
 
         </Grid>
         <Separator />
@@ -41,7 +46,7 @@
             <TextBlock 
                 FontWeight="Bold" 
                 FontSize="13" 
-                TextAlignment="Left"
+                TextAlignment="Center"
                 Grid.Row="0" Grid.Column="0"
             > Push changes</TextBlock>
 
@@ -49,19 +54,29 @@
             <TextBlock 
                 FontWeight="Bold" 
                 FontSize="13" 
-                TextAlignment="Left"
+                TextAlignment="Center"
                 Grid.Row="0" Grid.Column="1"
             > Sync with distant repo</TextBlock>
 
             <TextBlock 
                 FontWeight="Bold" 
                 FontSize="13" 
-                TextAlignment="Left"
+                TextAlignment="Center"
                 Grid.Row="0" Grid.Column="2"
             > Add new files to a repo</TextBlock>
 
-            <Button Grid.Row="1" Grid.Column="0" Command="{Binding PushChangesToRepo}">Push</Button>
-            <Button Grid.Row="1" Grid.Column="1" Command="{Binding SyncRepo}">Sync</Button>
+            <Button 
+                Grid.Row="1" 
+                Grid.Column="0" 
+                Command="{Binding PushChangesToRepo}"
+                CommandParameter="{Binding ElementName=MainWindow}"
+            >Push</Button>
+            <Button 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Command="{Binding SyncRepo}"
+                CommandParameter="{Binding ElementName=MainWindow}"
+            >Sync</Button>
             <Button 
             Grid.Row="1" 
             Grid.Column="2" 
@@ -70,7 +85,7 @@
             >Add</Button>
         </Grid>
 
-        <TextBlock FontWeight="Bold" FontSize="13" TextAlignment="Left"> Commit in repo</TextBlock>
+        <TextBlock FontWeight="Bold" FontSize="13" TextAlignment="Left" Margin="10,15"> Commit in repo</TextBlock>
         
         <Grid
             RowDefinitions="Auto" 
@@ -78,12 +93,12 @@
             Margin="5"    
             HorizontalAlignment="Left"
         >
-            <TextBox Grid.Row="0" Grid.Column="0" Name="gitMsg" Text="{Binding GitMsg, Mode=TwoWay}"></TextBox>
+            <TextBox Margin="10,0" Grid.Row="0" Grid.Column="0" Name="gitMsg" Text="{Binding GitMsg, Mode=TwoWay}"></TextBox>
             <Button 
                 Grid.Row="0" Grid.Column="1" 
                 Command="{Binding CommitRepo}"
                 CommandParameter="{Binding ElementName=MainWindow}"
-            >Clone</Button>
+            >Commit</Button>
         </Grid>
         
 
