@@ -28,28 +28,60 @@ namespace MyApp.ViewModels
                 _gitUrl = value;
             }
         }
-        private string _gitMsh = @"first commit";
+        private string _gitMsg = @"first commit";
         public string GitMsg
         {
-            get => _gitMsh;
+            get => _gitMsg;
             set {
-                _gitMsh = value;
+                _gitMsg = value;
             }
         }
 
-        // public MessageBox.Avalonia.BaseWindows.Base.IMsBoxWindow<MessageBox.Avalonia.Enums.ButtonResult> msgBox = MessageBox.Avalonia.MessageBoxManager
-        //     .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
-        //         ContentTitle = "Loading",
-        //         ContentMessage = "Chargement en cours ...",
-        //         Icon = Icon.Stopwatch,
-        //         Style = Style.UbuntuLinux
-        // });
+        private string _repoName = @"default";
+        public string RepoName
+        {
+            get => _repoName;
+            set {
+                _repoName = value;
+            }
+        }
 
+        private string _currentRepo = @"choose repo...";
+        public string CurrentRepo
+        {
+            get => _currentRepo;
+            set {
+                _currentRepo = value;
+            }
+        }
 
+        private string _filesToAdd = "";
+        public string FilesToAdd
+        {
+            get => _filesToAdd;
+            set {
+                _filesToAdd = value;
+            }
+        }
+        public async void SelectRepo(Window window)
+        {
+            var folderDialog = new OpenFolderDialog();
+            folderDialog.Title = "Sélectionner un dépot";
+
+            var folder = await folderDialog.ShowAsync(window);
+
+            
+            if (folder != null)
+            {
+                CurrentRepo = folder;
+                window.FindControl<TextBlock>("currentRepo").Text = folder;
+            }
+        }
         public async void folderOpener(Window window, string title, Action<string, string> callback, string command)
         {
             var folderDialog = new OpenFolderDialog();
             folderDialog.Title = title;
+            folderDialog.Directory = CurrentRepo;
 
             var folder = await folderDialog.ShowAsync(window);
 
@@ -59,18 +91,22 @@ namespace MyApp.ViewModels
             }
         }
 
-        //  public async void fileOpener(Window window, string title, Action<string, string> callback, string command)
-        // {
-        //     var fileDialog = new OpenFileDialog();
-        //     fileDialog.Title = title;
+         public async void fileOpener(Window window, string title, Action<string, string> callback, string command)
+        {
+            var fileDialog = new OpenFileDialog();
+            fileDialog.Title = title;
+            fileDialog.Directory = CurrentRepo;
 
-        //     var file = await fileDialog.ShowAsync(window);
+            var files = await fileDialog.ShowAsync(window);
 
-        //     if (file != null)
-        //     {
-        //        callback(file, command);
-        //     }
-        // }
+            if (files != null)
+            {
+                FilesToAdd = string.Join(" ", files);  
+                command += FilesToAdd;
+
+                callback(CurrentRepo, command);
+            }
+        }
 
         private void bashExec(string path, string cmd)
         {
@@ -88,7 +124,6 @@ namespace MyApp.ViewModels
                     CreateNoWindow = false,
                 }
             };
-            
 
             // await msgBox.Show();
             Thread.Sleep(50);
@@ -103,7 +138,7 @@ namespace MyApp.ViewModels
                 
                 var msgBox = MessageBox.Avalonia.MessageBoxManager
                 .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
-                    ContentTitle = "Loading",
+                    ContentTitle = "Infos",
                     ContentMessage = $"{errors}",
                     Icon = Icon.Error,
                     Style = Style.UbuntuLinux
@@ -117,23 +152,20 @@ namespace MyApp.ViewModels
                     
                 var msgBox = MessageBox.Avalonia.MessageBoxManager
                 .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
-                    ContentTitle = "Loading",
+                    ContentTitle = "Infos",
                     ContentMessage = $"Opération réussie: {output}",
                     Icon = Icon.Success,
                     Style = Style.UbuntuLinux
                 });
 
                 msgBox.Show();
-
             }
-            
 
         }
 
-
-        // public void DeleteRepo(Window window) {
-        //     folderOpener(window,"Supprimer un dépot local", bashExec, "rm -rf");
-        // }
+        public void CreateRepo(Window window) {
+            folderOpener(window,"Sélectionner une destination", bashExec, $"mkdir {RepoName} && git init");
+        }
 
         public void CloneRepo(Window window) {
             folderOpener(window,"Sélectionner une destination", bashExec, $"git clone {GitUrl}");
@@ -143,13 +175,22 @@ namespace MyApp.ViewModels
             folderOpener(window,"Sélectionner un dépot à synchroniser", bashExec, "git pull ");
         }
 
-
-        // public void AddFilesToRepo(Window window) {
-        //     folderOpener(window,"Sélectionner les fichiers à ajouter", bashExec, "git pull ");
-        // }
+        public void AddFilesToRepo(Window window) {
+            if (CurrentRepo == "choose repo...") {
+                 var msgBox = MessageBox.Avalonia.MessageBoxManager
+                .GetMessageBoxStandardWindow(new MessageBoxStandardParams{
+                    ContentTitle = "Infos",
+                    ContentMessage = "Veuillez séléctionner un dépot.",
+                    Icon = Icon.Error,
+                    Style = Style.UbuntuLinux
+                });
+            } else {
+                fileOpener(window,"Sélectionner les fichiers à ajouter", bashExec, "git add ");
+            }
+        }
 
         public void CommitRepo(Window window) {
-            folderOpener(window,"Sélectionner un dépot à synchroniser", bashExec, $"git commit -m {GitMsg}");
+            folderOpener(window,"Sélectionner un dépot à synchroniser", bashExec, $"git commit -m \"{GitMsg}\"");
         }
 
         public void PushChangesToRepo(Window window) {
