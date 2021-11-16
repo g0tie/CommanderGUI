@@ -164,7 +164,7 @@ namespace MyApp.ViewModels
         }
 
         public void CreateRepo(Window window) {
-            folderOpener(window,"Sélectionner une destination", bashExec, $"mkdir {RepoName} && git init");
+            folderOpener(window,"Sélectionner une destination", bashExec, $"mkdir {RepoName} && cd {RepoName} && git init");
         }
 
         public void CloneRepo(Window window) {
