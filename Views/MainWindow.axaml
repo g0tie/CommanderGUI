@@ -6,7 +6,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="MyApp.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="CommanderGUI: fastening git actions"
+        Title="CommanderGUI: speed up git actions"
         Width="600"
         Height="450"
         x:Name="MainWindow"

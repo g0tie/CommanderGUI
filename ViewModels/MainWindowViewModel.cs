@@ -125,7 +125,6 @@ namespace MyApp.ViewModels
                 }
             };
 
-            // await msgBox.Show();
             Thread.Sleep(50);
             process.Start();
 
