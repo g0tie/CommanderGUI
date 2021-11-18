@@ -55,7 +55,7 @@ Here <code>Text</code> attribute is binded to a property from the ViewModel
 <h3>Functions of ViewModel</h3>
 All code refering to the functions triggered when clicking on buttons are in <b>./ViewModels/MainWindowViewModel.cs</b>
 
-<h3>Gettesr/Setters</h3>
+<h3>Getters/Setters</h3>
 For text field getters and setters are defined
 
 ```csharp
