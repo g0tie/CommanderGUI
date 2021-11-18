@@ -3,7 +3,7 @@
 CommanderGUI is a .NET App made with AvaloniaUI in C# lang to manage git repositories faster.
 MessageBox Library is used to display info dialogs.
 
-![image](https://user-images.githubusercontent.com/56622131/141973603-eec63c4d-fa82-4a74-a10e-085a4f9ac92a.png)
+![image](https://user-images.githubusercontent.com/56622131/142376299-6e3fa309-e682-4d19-8854-49a43176834b.png)
 
 <h2>Usage</h2>
 
